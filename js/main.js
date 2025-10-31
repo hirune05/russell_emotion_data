@@ -298,3 +298,60 @@ function restoreContext(original) {
     window[key] = original[key];
   });
 }
+
+// パラメータをランダムに設定
+function randomizeParameters() {
+  // 目関連のパラメータ
+  const eyeOpenness = Math.random() * 0.85 + 0.15; // 0.15-1.0
+  const pupilSize = Math.random() * 0.7 + 0.3; // 0.3-1.0
+  const pupilAngle = Math.random() * 60 - 30; // -30 to 30
+  const upperEyelidAngle = Math.random() * 60 - 30; // -30 to 30
+  // 上瞼は10%の確率で0、それ以外はランダム
+  const upperEyelidCoverage = Math.random() < 0.1 ? 0 : Math.random() * 0.3;
+  // 下瞼は30%の確率で0、それ以外はランダム
+  const lowerEyelidCoverage = Math.random() < 0.3 ? 0 : Math.random() * 0.3;
+
+  // 口関連のパラメータ
+  const mouthCurve = Math.random() * 58 - 18; // -18 to 40
+  const mouthHeight = Math.random() * 3; // 0-3
+  const mouthWidth = Math.random() * 3.5 + 0.5; // 0.5-4
+
+  // UIを更新
+  document.getElementById('eyeOpenness').value = eyeOpenness;
+  document.getElementById('eyeOpennessValue').textContent = eyeOpenness.toFixed(2);
+
+  document.getElementById('pupilSize').value = pupilSize;
+  document.getElementById('pupilSizeValue').textContent = pupilSize.toFixed(2);
+
+  document.getElementById('pupilAngle').value = pupilAngle;
+  document.getElementById('pupilAngleValue').textContent = Math.round(pupilAngle);
+
+  document.getElementById('upperEyelidAngle').value = upperEyelidAngle;
+  document.getElementById('upperEyelidAngleValue').textContent = Math.round(upperEyelidAngle);
+
+  document.getElementById('upperEyelidCoverage').value = upperEyelidCoverage;
+  document.getElementById('upperEyelidCoverageValue').textContent = upperEyelidCoverage.toFixed(2);
+
+  document.getElementById('lowerEyelidCoverage').value = lowerEyelidCoverage;
+  document.getElementById('lowerEyelidCoverageValue').textContent = lowerEyelidCoverage.toFixed(2);
+
+  document.getElementById('mouthCurve').value = mouthCurve;
+  document.getElementById('mouthCurveValue').textContent = Math.round(mouthCurve);
+
+  document.getElementById('mouthHeight').value = mouthHeight;
+  document.getElementById('mouthHeightValue').textContent = mouthHeight.toFixed(2);
+
+  document.getElementById('mouthWidth').value = mouthWidth;
+  document.getElementById('mouthWidthValue').textContent = mouthWidth.toFixed(2);
+
+  // faceParamsを更新
+  faceParams.eyeOpenness = eyeOpenness;
+  faceParams.pupilSize = pupilSize;
+  faceParams.pupilAngle = pupilAngle;
+  faceParams.upperEyelidAngle = upperEyelidAngle;
+  faceParams.upperEyelidCoverage = upperEyelidCoverage;
+  faceParams.lowerEyelidCoverage = lowerEyelidCoverage;
+  faceParams.mouthCurve = mouthCurve;
+  faceParams.mouthHeight = mouthHeight;
+  faceParams.mouthWidth = mouthWidth;
+}
