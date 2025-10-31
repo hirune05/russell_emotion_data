@@ -107,7 +107,7 @@ button:hover {
   align-items: center;
 }
 
-#static-canvas-holder canvas,
+#russell-chart-holder canvas,
 #animated-canvas-holder canvas {
   display: block !important;
   border: 2px solid #ddd;
@@ -115,6 +115,7 @@ button:hover {
   height: 100%;
   max-width: 600px;
   max-height: 400px;
+  background-color: white;
 }
 
 #emotion-buttons {
