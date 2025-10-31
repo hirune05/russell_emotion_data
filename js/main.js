@@ -265,11 +265,20 @@ function randomizeParameters() {
   // 目関連のパラメータ
   // 目の開き具合は50%の確率で1付近、50%で0.15付近
   const eyeOpenness = Math.random() < 0.5
-    ? 0.85 + Math.random() * 0.15  // 0.85-1.0 (1に近い)
-    : 0.15 + Math.random() * 0.15; // 0.15-0.3 (0.15に近い)
+    ? 0.85 + Math.random() * 0.15  // 0.85-1.0 (1に近い) = 開いている
+    : 0.15 + Math.random() * 0.15; // 0.15-0.3 (0.15に近い) = 閉じている
   const pupilSize = Math.random() * 0.7 + 0.3; // 0.3-1.0
-  // 瞳の角度は50%の確率で0、それ以外は-30 to 30のランダム
-  const pupilAngle = Math.random() < 0.5 ? 0 : Math.random() * 60 - 30;
+
+  // 瞳の角度は目が閉じている場合(0.3未満)のみ変化、開いている場合は0
+  let pupilAngle;
+  if (eyeOpenness < 0.3) {
+    // 目が閉じている場合: 50%の確率で0、それ以外は-30 to 30のランダム
+    pupilAngle = Math.random() < 0.5 ? 0 : Math.random() * 60 - 30;
+  } else {
+    // 目が開いている場合: 常に0
+    pupilAngle = 0;
+  }
+
   const upperEyelidAngle = Math.random() * 60 - 30; // -30 to 30
   // 上瞼は40%の確率で0、それ以外はランダム
   const upperEyelidCoverage = Math.random() < 0.4 ? 0 : Math.random() * 0.3;
