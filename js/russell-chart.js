@@ -171,16 +171,6 @@ function drawRussellChart() {
     russellCanvas.text(coord.label, labelX, labelY);
   }
 
-  // 現在のポイントを示すマーカー（実行後の位置）
-  if (rightAnimationActive || savedEmotions.has(currentEmotion)) {
-    const x = currentEmotionPoint.x * radius;
-    const y = -currentEmotionPoint.y * radius;
-
-    russellCanvas.noFill();
-    russellCanvas.stroke(255, 100, 0);
-    russellCanvas.strokeWeight(3);
-    russellCanvas.ellipse(x, y, 24, 24);
-  }
 
   // クリックされた格子点に赤点を表示
   if (clickedGridPoint !== null) {

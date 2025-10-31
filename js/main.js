@@ -4,10 +4,6 @@ let canvasCreated = false;
 let currentEmotion = 'normal'; // 現在選択されている感情
 let savedEmotions = new Set(); // 保存済みの感情を記録
 
-// アニメーション用変数
-let rightAnimationActive = false;
-let rightAnimationStartTime = null;
-let rightAnimationDuration = 1000; // デフォルト1秒
 
 function setup() {
   // メインキャンバスを非表示で作成
@@ -23,11 +19,8 @@ function setup() {
   // UIイベントリスナーの設定
   setupUIListeners();
 
-  // デフォルトでニュートラルを選択
+  // 初期化処理
   setTimeout(() => {
-    setEmotion('normal');
-    // 初期状態で保存済み感情をチェック（必要に応じて）
-    updateSavedButtonStates();
     // ユニークな被験者IDを生成
     generateUniqueSubjectId();
   }, 200);
@@ -52,28 +45,6 @@ function draw() {
   drawAnimatedFace();
 }
 
-// 実行ボタンの処理
-function executeAction() {
-  // アニメーション速度を取得
-  const speedValue = parseFloat(document.getElementById("animationSpeed").value);
-  rightAnimationDuration = speedValue * 1000; // 秒をミリ秒に変換
-
-  // アニメーション開始
-  rightAnimationStartTime = millis();
-  rightAnimationActive = true;
-
-  // ラッセルチャートを更新
-  updateRussellChartEmotion(currentEmotion);
-}
-
-// リセットボタンの処理
-function resetAction() {
-  // アニメーションを停止
-  rightAnimationActive = false;
-
-  // ラッセルチャートをリセット
-  updateRussellChartEmotion('normal');
-}
 
 // 次の未保存の感情に移動
 function moveToNextUnsavedEmotion() {
@@ -175,15 +146,20 @@ function saveAction() {
   // YYYY-MM-DD HH:MM:SS.mmm形式でフォーマット
   const timestamp = jstTime.toISOString().replace('T', ' ').replace('Z', '');
 
-  // アニメーション速度を取得
-  const animationDuration = document.getElementById('animationSpeed').value;
+  // クリックされた座標を取得（クリックされていない場合はnull）
+  let coordX = null;
+  let coordY = null;
+  if (clickedGridPoint !== null) {
+    coordX = clickedGridPoint.gridX - 5; // 真ん中を0にする
+    coordY = 5 - clickedGridPoint.gridY; // 真ん中を0にする
+  }
 
   // 保存するデータの作成
   const data = {
     subject_id: subjectId,
     timestamp: timestamp,
-    emotion_label: currentEmotion,
-    animationDuration: animationDuration,
+    x_coordinate: coordX,
+    y_coordinate: coordY,
     eyeOpenness: faceParams.eyeOpenness,
     pupilSize: faceParams.pupilSize,
     pupilAngle: faceParams.pupilAngle,
@@ -207,21 +183,6 @@ function saveAction() {
   .then(result => {
     if (result.success) {
       alert('データを保存しました。');
-
-      // 保存した感情を記録
-      savedEmotions.add(currentEmotion);
-
-      // ボタンを無効化
-      const allButtons = document.querySelectorAll('.emotion-btn');
-      allButtons.forEach(btn => {
-        if (btn.getAttribute('onclick').includes(currentEmotion)) {
-          btn.classList.add('saved');
-          btn.disabled = true;
-        }
-      });
-
-      // 次の未保存の感情に自動的に移動
-      moveToNextUnsavedEmotion();
     } else {
       alert('保存エラー: ' + result.message);
     }
