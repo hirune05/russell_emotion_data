@@ -45,6 +45,7 @@ button:hover {
   justify-content: center;
   flex-wrap: nowrap;
   max-width: 400px;
+  width: 100%;
 }
 
 #execute-button,
@@ -96,7 +97,7 @@ button:hover {
   gap: 30px;
   align-items: flex-start;
   margin: 20px 0;
-  transform: scale(0.85);
+  transform: scale(1);
   transform-origin: center top;
 }
 
@@ -111,10 +112,8 @@ button:hover {
 #animated-canvas-holder canvas {
   display: block !important;
   border: 2px solid #ddd;
-  width: 100%;
-  height: 100%;
   max-width: 600px;
-  max-height: 400px;
+  max-height: 600px;
   background-color: white;
 }
 
@@ -188,36 +187,7 @@ button:hover {
   width: 100%;
 }
 
-#parameters {
-  margin: 15px 0;
-  padding: 12px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
-  color: black;
-  max-width: 400px;
-}
 
-.param-group {
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-label {
-  width: 150px;
-  font-weight: bold;
-}
-
-input[type="range"] {
-  width: 200px;
-}
-
-.value {
-  width: 50px;
-  text-align: center;
-}
 
 #subject-id-container {
   margin: 15px 0;

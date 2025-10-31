@@ -16,8 +16,7 @@ function setup() {
   // ラッセルチャートを作成
   createRussellChart();
 
-  // UIイベントリスナーの設定
-  setupUIListeners();
+  
 
   // 初期化処理
   setTimeout(() => {
@@ -33,6 +32,9 @@ function setup() {
 
     canvasCreated = true;
   }, 100);
+
+  // 初期状態でランダムな表情を表示
+  randomizeParameters();
 }
 
 function draw() {
@@ -182,7 +184,10 @@ function saveAction() {
   .then(response => response.json())
   .then(result => {
     if (result.success) {
-      alert('データを保存しました。');
+      // 次のランダムな表情を生成
+      randomizeParameters();
+      // ラッセルチャートのクリック座標をリセット
+      clickedGridPoint = null;
     } else {
       alert('保存エラー: ' + result.message);
     }
@@ -289,34 +294,6 @@ function randomizeParameters() {
   const mouthCurve = Math.random() * 58 - 18; // -18 to 40
   const mouthHeight = Math.random() * 3; // 0-3
   const mouthWidth = Math.random() * 3.5 + 0.5; // 0.5-4
-
-  // UIを更新
-  document.getElementById('eyeOpenness').value = eyeOpenness;
-  document.getElementById('eyeOpennessValue').textContent = eyeOpenness.toFixed(2);
-
-  document.getElementById('pupilSize').value = pupilSize;
-  document.getElementById('pupilSizeValue').textContent = pupilSize.toFixed(2);
-
-  document.getElementById('pupilAngle').value = pupilAngle;
-  document.getElementById('pupilAngleValue').textContent = Math.round(pupilAngle);
-
-  document.getElementById('upperEyelidAngle').value = upperEyelidAngle;
-  document.getElementById('upperEyelidAngleValue').textContent = Math.round(upperEyelidAngle);
-
-  document.getElementById('upperEyelidCoverage').value = upperEyelidCoverage;
-  document.getElementById('upperEyelidCoverageValue').textContent = upperEyelidCoverage.toFixed(2);
-
-  document.getElementById('lowerEyelidCoverage').value = lowerEyelidCoverage;
-  document.getElementById('lowerEyelidCoverageValue').textContent = lowerEyelidCoverage.toFixed(2);
-
-  document.getElementById('mouthCurve').value = mouthCurve;
-  document.getElementById('mouthCurveValue').textContent = Math.round(mouthCurve);
-
-  document.getElementById('mouthHeight').value = mouthHeight;
-  document.getElementById('mouthHeightValue').textContent = mouthHeight.toFixed(2);
-
-  document.getElementById('mouthWidth').value = mouthWidth;
-  document.getElementById('mouthWidthValue').textContent = mouthWidth.toFixed(2);
 
   // faceParamsを更新
   faceParams.eyeOpenness = eyeOpenness;

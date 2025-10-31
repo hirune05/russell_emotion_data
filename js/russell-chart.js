@@ -43,7 +43,7 @@ let clickedGridPoint = null; // クリックされた格子点 {gridX, gridY}
 
 // ラッセルチャート用のキャンバスを作成
 function createRussellChart() {
-  russellCanvas = createGraphics(450, 450);
+  russellCanvas = createGraphics(600, 600);
 
   // キャンバスをDOMに追加
   setTimeout(() => {
@@ -71,7 +71,7 @@ function handleRussellChartClick(event) {
 
   const centerX = russellCanvas.width / 2;
   const centerY = russellCanvas.height / 2;
-  const radius = 120;
+  const radius = 180;
 
   // クリック位置を中心座標系に変換
   const relX = clickX - centerX;
@@ -123,7 +123,7 @@ function drawRussellChart() {
 
   const centerX = russellCanvas.width / 2;
   const centerY = russellCanvas.height / 2;
-  const radius = 120;
+  const radius = 180;
 
   russellCanvas.translate(centerX, centerY);
 
