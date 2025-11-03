@@ -198,6 +198,15 @@ function saveAction() {
   });
 }
 
+// スキップボタンの処理
+function skipAction() {
+  // 次のランダムな表情を生成
+  randomizeParameters();
+  // ラッセルチャートのクリック座標をリセット
+  clickedGridPoint = null;
+  console.log("Skipped to next expression.");
+}
+
 
 // コンテキストを設定
 function setupContext(canvas) {
